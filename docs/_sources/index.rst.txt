@@ -14,6 +14,7 @@ Modular Make
    :glob:
 
    introduction/*
+   cpp-projects/*
 
 Indices and tables
 ==================
