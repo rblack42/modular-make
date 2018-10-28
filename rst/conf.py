@@ -2,6 +2,8 @@
 
 import os
 import sys
+import cloud_sptheme as csp
+
 sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
@@ -26,7 +28,9 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 pygments_style = None
 
 # -- Options for HTML output -------------------------------------------------
-html_theme = 'alabaster'
+html_theme = 'cloud'
+html_theme_path = [csp.get_theme_dir()]
+html_theme_options = { "roottarget": "index" }
 html_static_path = ['_static']
 
 # -- Options for LaTeX output ------------------------------------------------
