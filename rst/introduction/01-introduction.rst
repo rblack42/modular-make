@@ -1,4 +1,5 @@
-Introduction ############
+Introduction
+############
 
 I have been teaching students how to build projects using the ``command line``
 on all major platforms for years. I also introduce them to the ``Gnu Make`` tool, a
@@ -45,5 +46,5 @@ Specifically, these tools shuld all be installed and able to be run from a
 
     * ``Gnu Make`` - the build tool
     * ``Gnu C/C++`` - modern compiler tool set
-    * ``Python 3+`` (3.7 currently) - used for documentation and i``make`` helper scripts
+    * ``Python 3+`` (3.7 currently) - used for documentation and ``make`` helper scripts
     * ``Git`` - source code management

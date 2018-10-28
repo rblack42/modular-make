@@ -4,6 +4,7 @@ ifeq ($(OS), Windows_NT)
 	RM	= del
 	WHICH = where
 	PLATFORM = Windows
+    PROJPATH = $(CURDIR)
 	include $(wildcard mk/pc/*.mk)
 else
 	EXT =
