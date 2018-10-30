@@ -16,4 +16,17 @@ with a specified extension:
     :linenos:
     :caption: mk/pyfind.py
 
+Here is the `Makefile`` component that uses this script:
+
+..  literalinclude::    ../../mk/cppproj.mk
+    :linenos:
+    :caption: mk/cppproj.mk
+
+This script searches all subdirectories under the named directory for files
+ending with the indicated extension. It then builds another list of object
+files. There is one trick that gets a list of object files using the standard
+Windows backslah path separater. This is needed so the ``del`` command will
+work properly when we set up a ``clean`` target on a PC.
+
+
 

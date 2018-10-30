@@ -89,6 +89,34 @@ with a specified extension:</p>
 </pre></div>
 </td></tr></table></div>
 </div>
+<p>Here is the <cite>Makefile`</cite> component that uses this script:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">mk/cppproj.mk</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span>USRCS	:= $(wildcard src/*.cpp)
+LSRCS	:= $(shell python mk/pyfind.py lib .cpp)
+TSRCS	:= $(wildcard tests/*.cpp)
+SRCS    := $(USRCS) $(LSRCS) $(TSRCS)
+
+UOBJS   := $(USRCS:.cpp=.o)
+LOBJS   := $(LSRCS:.cpp=.o)
+TOBJS   := $(TSRCS:.cpp=.o)
+OBJS    := $(UOBJS) $(LOBJS) $(TOBJS)
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>This script searches all subdirectories under the named directory for files
+ending with the indicated extension. It then builds another list of object
+files. There is one trick that gets a list of object files using the standard
+Windows backslah path separater. This is needed so the <code class="docutils literal notranslate"><span class="pre">del</span></code> command will
+work properly when we set up a <code class="docutils literal notranslate"><span class="pre">clean</span></code> target on a PC.</p>
 </div>
 
 
