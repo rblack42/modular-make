@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Detecting Hardware &#8212; ModularMake 0.0.1 documentation</title>
+    <title>Makefile Layout &#8212; ModularMake 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" />
@@ -22,8 +22,8 @@
     <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="C/C++ Projects" href="../cpp-projects/01-cpp-projects.html" />
-    <link rel="prev" title="Makefile Layout" href="../introduction/03-makefile-layout.html" /> 
+    <link rel="next" title="Detecting Hardware" href="../hardware/01-detecting-hardware.html" />
+    <link rel="prev" title="Top-Level Makefile" href="02-top-level.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head><body>
     <div class="relbar-top">
@@ -35,10 +35,10 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../cpp-projects/01-cpp-projects.html" title="C/C++ Projects"
+          <a href="../hardware/01-detecting-hardware.html" title="Detecting Hardware"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="../introduction/03-makefile-layout.html" title="Makefile Layout"
+          <a href="02-top-level.html" title="Top-Level Makefile"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">ModularMake 0.0.1 documentation</a> &#187;</li>
  
@@ -52,16 +52,41 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="detecting-hardware">
-<h1>Detecting Hardware<a class="headerlink" href="#detecting-hardware" title="Permalink to this headline">¶</a></h1>
-<p>Read time: 3 minutes (757 words)</p>
-<p>The biggest problem faced when teaching classes in software development is the
-number of different systems presented by students. SOme have the latest, most
-powerful systems available, some have hand-me-down systems littered with
-programs no on even understands why they are on the system. All of this sytems
-need to be handled, so the first job of the build system is to identify the
-exact machine setup the student is using.</p>
-<p>In the Linus world, there ia a common tool thta does this: <code class="docutils literal notranslate"><span class="pre">autoconfig</span></code>. This tool runs an extensiive check of all the software components it can find on the machine, and determines what tools are available to build the software. Unfortunately. such a tool is not really available on PC systems, so we need to do something differemt.</p>
+  <div class="section" id="makefile-layout">
+<h1>Makefile Layout<a class="headerlink" href="#makefile-layout" title="Permalink to this headline">¶</a></h1>
+<p>Read time: 7 minutes (1825 words)</p>
+<p>The goal of this project is to keep things simple for beginning students. That
+means there should only be one file they need to modify, and that file should
+be super short. Admittedly, that means they will not spend much time looking at
+th actual Makefile code, but I go over each module in this system, explaining
+what it does. By doing that, they have a chance to learn more about how <a class="reference external" href="https://www.gnu.org/software/make/">Make</a>
+actually does its magic.</p>
+<div class="section" id="project-makefile">
+<h2>Project Makefile<a class="headerlink" href="#project-makefile" title="Permalink to this headline">¶</a></h2>
+<p>I assume that every project created lives in a folder named with the project
+name. That name will be useful, so we capture it in the top level Makefile</p>
+<p>Each project involves different components. For example, a project may (should)
+include documentation, which I set up using Python <a class="reference external" href="http://www.sphinx-doc.org/">Sphinx</a> for all student
+work. Some projects involve graphics, and the graphics components are kept
+separated from the rsest of the project code for reasons that will be explained
+later.</p>
+<p>A project may use C++, Python, or Assembly Language in my classes, so I
+identify the language requirements as well. Note that some projects may need
+support for any or all of these languages.</p>
+</div>
+<div class="section" id="makefile-modules">
+<h2>Makefile Modules<a class="headerlink" href="#makefile-modules" title="Permalink to this headline">¶</a></h2>
+<p>All parts of the Makefile system that should never be modified by a student are
+kept in a separate folder. That folder could be located in the project
+repository, but simce these modules are used in many projects, it might make
+sense to store then in a single place on the system, and simple reference that
+location in the Makefile. The downside of this approace is that the project
+repository is not completely self contained. <a class="reference external" href="https://git-scm.com/">Git</a> supports cloning a repository
+with dependend sun projects in one command, which solves this problem, at the
+expense of a more complicated clone command. For now, I am going to recommend
+that students simple clone this project repository on their systems, then
+include the path to that location in their project Makefile.</p>
+</div>
 </div>
 
 
@@ -69,21 +94,31 @@ exact machine setup the student is using.</p>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="../index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Makefile Layout</a><ul>
+<li><a class="reference internal" href="#project-makefile">Project Makefile</a></li>
+<li><a class="reference internal" href="#makefile-modules">Makefile Modules</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
   <div class="sphinxprev">
     <h4>Previous page</h4>
-    <p class="topless"><a href="../introduction/03-makefile-layout.html"
-                          title="Previous page">&larr; Makefile Layout</a></p>
+    <p class="topless"><a href="02-top-level.html"
+                          title="Previous page">&larr; Top-Level Makefile</a></p>
   </div>
   <div class="sphinxnext">
     <h4>Next page</h4>
-    <p class="topless"><a href="../cpp-projects/01-cpp-projects.html"
-                          title="Next page">&rarr; C/C++ Projects</a></p>
+    <p class="topless"><a href="../hardware/01-detecting-hardware.html"
+                          title="Next page">&rarr; Detecting Hardware</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/hardware/01-detecting-hardware.rst.txt"
+      <li><a href="../_sources/introduction/03-makefile-layout.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -129,10 +164,10 @@ exact machine setup the student is using.</p>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../cpp-projects/01-cpp-projects.html" title="C/C++ Projects"
+          <a href="../hardware/01-detecting-hardware.html" title="Detecting Hardware"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="../introduction/03-makefile-layout.html" title="Makefile Layout"
+          <a href="02-top-level.html" title="Top-Level Makefile"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">ModularMake 0.0.1 documentation</a> &#187;</li>
  
