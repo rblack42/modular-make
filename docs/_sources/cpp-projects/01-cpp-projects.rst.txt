@@ -1,7 +1,7 @@
 C/C++ Projects
 ##############
 
-..  vim:filetype=rst spell:
+..  include::   /header.inc
 
 My recommended structure for C/C++ projects puts most code in a ``lib``
 subdirectory. In order to separate major project components, you can create

@@ -1,7 +1,7 @@
 Top-Level Makefile
 ##################
 
-..  vim:filetype=rst spell:
+.. include::    /header.inc
 
 The major components of this ``make`` system are all included in the top-level
 project ``Makefile``. That keeps this file extremely simple. All it has in it

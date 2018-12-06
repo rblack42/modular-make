@@ -1,13 +1,92 @@
 Introduction
 ############
 
+..  include::   /header.inc
+
+
+I like to teach programming classes using the command line and standard build
+tools. In my teaching experience, I see many students learning programming
+using some kind of IDE. Their instructors like the IDE because is is easy to
+set up, and that one tool covers all of their programming needs.  However, in
+the end these students have little idea how their programs are actually
+constructed.  All they ever do is click on one magic button in their IDE to see
+if their code will run. 
+
+..  note::
+
+    One school I was involved with almost lost their accreditation because no
+    student interviewed (and several faculty as well) could explain what
+    happened when that magic button was clicked!
+
+Behind the scenes, many IDE systems use the same standard build tools I have my
+students use to actually process the code they write and get it running.
+
+There is nothing really wrong with the IDE approach, but my feeling is that
+using an IDE is a kind of religious thing. Most IDE tools take some learning to
+master, and they require a particular project structure to function. Worse yet,
+that structure is often invisible to beginning students, who end up with no
+idea where the code they just created lives on their system. My recommendation
+is to wait to pick an IDE until you know you will be spending a lot of time
+developing software in that system. Since many IDE systems used in a classroom
+are not used on the job, the time spend learning that school IDE may well be
+wasted when they discover they need to learn another one.
+
+I avoid all of that by focusing on the core build tools. For C/C++ classes, I
+use the ``Gnu Compiler Collection`` (``GCC``) tools, which are core tools on
+all Linux systems. are same tools are easily installed on Mac and PC systems as
+well. I show students how these tools are used to build their programs by
+activating them on the command line.
+
+After thay have mastered that style of development, I introduce Make_, and the
+result is a development workflow that they can use on any machine, from a tiny
+Raspberry Pi to a giant supercomputer. If they want to use an IDE after that,
+nothing will stop them, and they will better understand what an IDE actually
+does.
+
+Why Make
+********
+
+Make_ is one of the oldest build tools around. It was developed by Marty
+Feldmann back in 1976, who wanted to speed up command line work (that was all
+we had back then). His tool did an amazing job of doing that, and it has been in
+use actively ever since. In fact some IDE systems just end up being a wrapper
+around Make_ which does the real work.
+
+Because it is so common, I use Make_ rather than one of the newer build tools.
+A quick search on GitHub_ showed 56 million Makefiles were available for study.
+I think that number speaks for itself!
+
+Writing Makefiles
+*****************
+
+Make_ depends on a single text file called ``Makefile`` or ``makefile`` to
+control what it does. There are many ways to set up Make_ in a project, and
+some end up with a ``Makefile`` in every directory. A top-level Makefile can be
+used to build an entire project using this scheme. Other developers like one
+top-lebel Makefile`` to control every aspect of building and managing their
+projects.
+
+Because I teach beginning software development courses, I keep to the single
+``Makefile`` style. As the project grows in size, so does the size of this
+``Makefile``! So, I began looking for ways to better manage the ``Makefile``
+itself. It turns out to be easy to do this, but getting things set up for
+student use took a bit of research and thinking!
+
+Modular Make
+************
+
+What I came up with, and this is by no means original to me, is the idea of
+breaking up a long ``Makefile`` into a set of focuses component files, all of
+which are included in a single top-level `Makefile`` that ends up fairly small.
+Any project can be set up by copying this one file into the right place, then
+selecting the Make_ modules needed for that project.
 I have been teaching students how to build projects using the ``command line``
 on all major platforms for years. I also introduce them to the ``Gnu Make`` tool, a
 powerful build tool used by millions of developers. Sadly, I am in the minority
 when it comes ot getting students set up to work this way.
 
 This project is an effort to modularize a ``Makefile`` suitable for use in my
-Python, C/C++, and COmputer Architecture classes. The basic setup should work
+Python, C/C++, and Computer Architecture classes. The basic setup should work
 on any platform with no changes.
 
 Project Structure
@@ -41,7 +120,7 @@ Required Tools
 **************
 
 This system assumes that you are using a fairly common set of build tools.
-Specifically, these tools shuld all be installed and able to be run from a
+Specifically, these tools should all be installed and able to be run from a
 ``command line`` shell:
 
     * ``Gnu Make`` - the build tool

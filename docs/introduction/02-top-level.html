@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="C/C++ Projects" href="../cpp-projects/01-cpp-projects.html" />
+    <link rel="next" title="Detecting Hardware" href="../hardware/01-detecting-hardware.html" />
     <link rel="prev" title="Introduction" href="01-introduction.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head><body>
@@ -35,7 +35,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../cpp-projects/01-cpp-projects.html" title="C/C++ Projects"
+          <a href="../hardware/01-detecting-hardware.html" title="Detecting Hardware"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="01-introduction.html" title="Introduction"
@@ -54,6 +54,7 @@
             
   <div class="section" id="top-level-makefile">
 <h1>Top-Level Makefile<a class="headerlink" href="#top-level-makefile" title="Permalink to this headline">¶</a></h1>
+<p>Read time: 4 minutes (1115 words)</p>
 <p>The major components of this <code class="docutils literal notranslate"><span class="pre">make</span></code> system are all included in the top-level
 project <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>. That keeps this file extremely simple. All it has in it
 is a few definitions to extract the project name from the current directory,
@@ -65,11 +66,13 @@ then it includes a component that detects what platform you are using.</p>
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span></span># Modular Make - top level makefile
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span></span># Modular Make - top level makefile
 PROJPATH = $(PWD)
 PROJNAME = $(notdir $(PROJPATH))
 
 include $(wildcard mk/*.mk)
+TARGET := $(PROJNAME)$(EXT)
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -108,23 +111,23 @@ you are using:</p>
 	EXT = .exe
 	PREFIX =
 	RM	= del
-	WHICH = where
-	PLATFORM = Windows
-    PROJPATH = $(CURDIR)
+	WHICH := where
+	PLATFORM := Windows
+	PROJPATH := $(CURDIR)
 	include $(wildcard mk/pc/*.mk)
 else
 	EXT =
 	RM 	= rm -f
-	PREFIX = ./
-	WHICH = which
+	PREFIX := ./
+	WHICH := which
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S), Linux)
-	 	PLATFORM = Linux
-	include $(wildcard mk/linux/*.mk)
+		PLATFORM := Linux
+		include $(wildcard mk/linux/*.mk)
 	endif
 	ifeq ($(UNAME_S), Darwin)
-		PLATFORM = Mac
-	include $(wildcard mk/mac/*.mk)
+		PLATFORM := Mac
+		include $(wildcard mk/mac/*.mk)
 	endif
 endif
 
@@ -270,8 +273,8 @@ help:	## display help messages
   </div>
   <div class="sphinxnext">
     <h4>Next page</h4>
-    <p class="topless"><a href="../cpp-projects/01-cpp-projects.html"
-                          title="Next page">&rarr; C/C++ Projects</a></p>
+    <p class="topless"><a href="../hardware/01-detecting-hardware.html"
+                          title="Next page">&rarr; Detecting Hardware</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -322,7 +325,7 @@ help:	## display help messages
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../cpp-projects/01-cpp-projects.html" title="C/C++ Projects"
+          <a href="../hardware/01-detecting-hardware.html" title="Detecting Hardware"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="01-introduction.html" title="Introduction"

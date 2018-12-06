@@ -1,8 +1,8 @@
-Introduction
+Modular Make
 ############
 
-..  include::   /header.inc
-
+..  wordcount::
+..  vim:ft=rst spell:
 
 I like to teach programming classes using the command line and standard build
 tools. In my teaching experience, I see many students learning programming
@@ -33,14 +33,14 @@ wasted when they discover they need to learn another one.
 
 I avoid all of that by focusing on the core build tools. For C/C++ classes, I
 use the ``Gnu Compiler Collection`` (``GCC``) tools, which are core tools on
-all Linux systems. are same tools are easily installed on Mac and PC systems as
+all Linux systems. ane same tools are easily installed on Mac and PC systems as
 well. I show students how these tools are used to build their programs by
 activating them on the command line.
 
-After thay have mastered that style of development, I introduce Make_, and the
+After thay have masterd that style of development, I introduce Make_, and the
 result is a development workflow that they can use on any machine, from a tiny
-Raspberry Pi to a giant supercomputer. If they want to use an IDE after that,
-nothing will stop them, and they will better understand what an IDE actually
+Raspberry Pi to a giant supercomputer. If they want to use an IDE after than,
+nothing will stop that, and they will better understand what an IDE actually
 does.
 
 Why Make
@@ -48,7 +48,7 @@ Why Make
 
 Make_ is one of the oldest build tools around. It was developed by Marty
 Feldmann back in 1976, who wanted to speed up command line work (that was all
-we had back then). His tool did an amazing job of doing that, and it has been in
+we had back then).His tool did an amazing job of doinf that, and it has been in
 use actively ever since. In fact some IDE systems just end up being a wrapper
 around Make_ which does the real work.
 
@@ -66,64 +66,17 @@ used to build an entire project using this scheme. Other developers like one
 top-lebel Makefile`` to control every aspect of building and managing their
 projects.
 
-Because I teach beginning software development courses, I keep to the single
+Because I teach beginning development courses, I keep to the single
 ``Makefile`` style. As the project grows in size, so does the size of this
-``Makefile``! So, I began looking for ways to better manage the ``Makefile``
+``Makefile``, so I began looking for ways to better manage the ``Makefile``
 itself. It turns out to be easy to do this, but getting things set up for
 student use took a bit of research and thinking!
 
 Modular Make
 ************
 
-What I came up with, and this is by no means original to me, is the idea of
+WHat I came up with, and this is by no means original to me, is the idea of
 breaking up a long ``Makefile`` into a set of focuses component files, all of
 which are included in a single top-level `Makefile`` that ends up fairly small.
 Any project can be set up by copying this one file into the right place, then
 selecting the Make_ modules needed for that project.
-I have been teaching students how to build projects using the ``command line``
-on all major platforms for years. I also introduce them to the ``Gnu Make`` tool, a
-powerful build tool used by millions of developers. Sadly, I am in the minority
-when it comes ot getting students set up to work this way.
-
-This project is an effort to modularize a ``Makefile`` suitable for use in my
-Python, C/C++, and Computer Architecture classes. The basic setup should work
-on any platform with no changes.
-
-Project Structure
-******************
-
-Use of this ``Makefile`` setup assumes a basic project organization that should be
-usable for most student projects, even fairly large ones. The system needs
-Python to perform some of the magic, since many ``Make`` setups depend on features
-only available to builders working on Mac/Linux systems. I decided to add a few
-small Python scripts, driven by ``Make`` to get some things done.
-
-Here is the basic project setup I use:
-
-..  code-block:: text
-
-    +- ProjectName
-        |
-        +- src/ - holds user part of application
-        |
-        +- lib/ - all application components live here
-        |
-        +- include/ - header files
-        |
-        +- tests/ - unit tests
-        |
-        +- rst/ - reStructuredText documentation (Sphinx)
-        |
-        +- docs/ - html pages published on GitHub
-
-Required Tools
-**************
-
-This system assumes that you are using a fairly common set of build tools.
-Specifically, these tools should all be installed and able to be run from a
-``command line`` shell:
-
-    * ``Gnu Make`` - the build tool
-    * ``Gnu C/C++`` - modern compiler tool set
-    * ``Python 3+`` (3.7 currently) - used for documentation and ``make`` helper scripts
-    * ``Git`` - source code management

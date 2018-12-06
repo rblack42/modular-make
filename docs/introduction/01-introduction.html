@@ -54,13 +54,81 @@
             
   <div class="section" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
-<p>I have been teaching students how to build projects using the <code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">line</span></code>
+<p>Read time: 19 minutes (4995 words)</p>
+<p>I like to teach programming classes using the command line and standard build
+tools. In my teaching experience, I see many students learning programming
+using some kind of IDE. Their instructors like the IDE because is is easy to
+set up, and that one tool covers all of their programming needs.  However, in
+the end these students have little idea how their programs are actually
+constructed.  All they ever do is click on one magic button in their IDE to see
+if their code will run.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">One school I was involved with almost lost their accreditation because no
+student interviewed (and several faculty as well) could explain what
+happened when that magic button was clicked!</p>
+</div>
+<p>Behind the scenes, many IDE systems use the same standard build tools I have my
+students use to actually process the code they write and get it running.</p>
+<p>There is nothing really wrong with the IDE approach, but my feeling is that
+using an IDE is a kind of religious thing. Most IDE tools take some learning to
+master, and they require a particular project structure to function. Worse yet,
+that structure is often invisible to beginning students, who end up with no
+idea where the code they just created lives on their system. My recommendation
+is to wait to pick an IDE until you know you will be spending a lot of time
+developing software in that system. Since many IDE systems used in a classroom
+are not used on the job, the time spend learning that school IDE may well be
+wasted when they discover they need to learn another one.</p>
+<p>I avoid all of that by focusing on the core build tools. For C/C++ classes, I
+use the <code class="docutils literal notranslate"><span class="pre">Gnu</span> <span class="pre">Compiler</span> <span class="pre">Collection</span></code> (<code class="docutils literal notranslate"><span class="pre">GCC</span></code>) tools, which are core tools on
+all Linux systems. are same tools are easily installed on Mac and PC systems as
+well. I show students how these tools are used to build their programs by
+activating them on the command line.</p>
+<p>After thay have mastered that style of development, I introduce <a class="reference external" href="https://www.gnu.org/software/make/">Make</a>, and the
+result is a development workflow that they can use on any machine, from a tiny
+Raspberry Pi to a giant supercomputer. If they want to use an IDE after that,
+nothing will stop them, and they will better understand what an IDE actually
+does.</p>
+<div class="section" id="why-make">
+<h2>Why Make<a class="headerlink" href="#why-make" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.gnu.org/software/make/">Make</a> is one of the oldest build tools around. It was developed by Marty
+Feldmann back in 1976, who wanted to speed up command line work (that was all
+we had back then). His tool did an amazing job of doing that, and it has been in
+use actively ever since. In fact some IDE systems just end up being a wrapper
+around <a class="reference external" href="https://www.gnu.org/software/make/">Make</a> which does the real work.</p>
+<p>Because it is so common, I use <a class="reference external" href="https://www.gnu.org/software/make/">Make</a> rather than one of the newer build tools.
+A quick search on <a class="reference external" href="https://github.com/">GitHub</a> showed 56 million Makefiles were available for study.
+I think that number speaks for itself!</p>
+</div>
+<div class="section" id="writing-makefiles">
+<h2>Writing Makefiles<a class="headerlink" href="#writing-makefiles" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://www.gnu.org/software/make/">Make</a> depends on a single text file called <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">makefile</span></code> to
+control what it does. There are many ways to set up <a class="reference external" href="https://www.gnu.org/software/make/">Make</a> in a project, and
+some end up with a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> in every directory. A top-level Makefile can be
+used to build an entire project using this scheme. Other developers like one
+top-lebel Makefile`` to control every aspect of building and managing their
+projects.</p>
+<p>Because I teach beginning software development courses, I keep to the single
+<code class="docutils literal notranslate"><span class="pre">Makefile</span></code> style. As the project grows in size, so does the size of this
+<code class="docutils literal notranslate"><span class="pre">Makefile</span></code>! So, I began looking for ways to better manage the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>
+itself. It turns out to be easy to do this, but getting things set up for
+student use took a bit of research and thinking!</p>
+</div>
+<div class="section" id="modular-make">
+<h2>Modular Make<a class="headerlink" href="#modular-make" title="Permalink to this headline">¶</a></h2>
+<p>What I came up with, and this is by no means original to me, is the idea of
+breaking up a long <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> into a set of focuses component files, all of
+which are included in a single top-level <cite>Makefile`</cite> that ends up fairly small.
+Any project can be set up by copying this one file into the right place, then
+selecting the <a class="reference external" href="https://www.gnu.org/software/make/">Make</a> modules needed for that project.
+I have been teaching students how to build projects using the <code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">line</span></code>
 on all major platforms for years. I also introduce them to the <code class="docutils literal notranslate"><span class="pre">Gnu</span> <span class="pre">Make</span></code> tool, a
 powerful build tool used by millions of developers. Sadly, I am in the minority
 when it comes ot getting students set up to work this way.</p>
 <p>This project is an effort to modularize a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> suitable for use in my
-Python, C/C++, and COmputer Architecture classes. The basic setup should work
+Python, C/C++, and Computer Architecture classes. The basic setup should work
 on any platform with no changes.</p>
+</div>
 <div class="section" id="project-structure">
 <h2>Project Structure<a class="headerlink" href="#project-structure" title="Permalink to this headline">¶</a></h2>
 <p>Use of this <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> setup assumes a basic project organization that should be
@@ -88,7 +156,7 @@ small Python scripts, driven by <code class="docutils literal notranslate"><span
 <div class="section" id="required-tools">
 <h2>Required Tools<a class="headerlink" href="#required-tools" title="Permalink to this headline">¶</a></h2>
 <p>This system assumes that you are using a fairly common set of build tools.
-Specifically, these tools shuld all be installed and able to be run from a
+Specifically, these tools should all be installed and able to be run from a
 <code class="docutils literal notranslate"><span class="pre">command</span> <span class="pre">line</span></code> shell:</p>
 <blockquote>
 <div><ul class="simple">
@@ -110,6 +178,9 @@ Specifically, these tools shuld all be installed and able to be run from a
     <h3><a href="../index.html">Page contents</a></h3>
     <ul>
 <li><a class="reference internal" href="#">Introduction</a><ul>
+<li><a class="reference internal" href="#why-make">Why Make</a></li>
+<li><a class="reference internal" href="#writing-makefiles">Writing Makefiles</a></li>
+<li><a class="reference internal" href="#modular-make">Modular Make</a></li>
 <li><a class="reference internal" href="#project-structure">Project Structure</a></li>
 <li><a class="reference internal" href="#required-tools">Required Tools</a></li>
 </ul>

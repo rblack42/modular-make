@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/cloud.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Top-Level Makefile" href="../introduction/02-top-level.html" /> 
+    <link rel="prev" title="Detecting Hardware" href="../hardware/01-detecting-hardware.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head><body>
     <div class="relbar-top">
@@ -34,7 +34,7 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../introduction/02-top-level.html" title="Top-Level Makefile"
+          <a href="../hardware/01-detecting-hardware.html" title="Detecting Hardware"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">ModularMake 0.0.1 documentation</a> &#187;</li>
  
@@ -50,6 +50,7 @@
             
   <div class="section" id="c-c-projects">
 <h1>C/C++ Projects<a class="headerlink" href="#c-c-projects" title="Permalink to this headline">¶</a></h1>
+<p>Read time: 3 minutes (858 words)</p>
 <p>My recommended structure for C/C++ projects puts most code in a <code class="docutils literal notranslate"><span class="pre">lib</span></code>
 subdirectory. In order to separate major project components, you can create
 subdirectories under <code class="docutils literal notranslate"><span class="pre">lib</span></code>. However, doing so introduces a problem if we want
@@ -92,15 +93,40 @@ with a specified extension:</p>
 <p>Here is the <cite>Makefile`</cite> component that uses this script:</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">mk/cppproj.mk</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
-<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9</pre></div></td><td class="code"><div class="highlight"><pre><span></span>USRCS	:= $(wildcard src/*.cpp)
+<div class="highlight-default notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre></div></td><td class="code"><div class="highlight"><pre><span></span>HDRS	:= $(shell python mk/pyfind.py include .h)
+
+USRCS	:= $(wildcard src/*.cpp)
 LSRCS	:= $(shell python mk/pyfind.py lib .cpp)
 TSRCS	:= $(wildcard tests/*.cpp)
 SRCS    := $(USRCS) $(LSRCS) $(TSRCS)
@@ -109,6 +135,27 @@ UOBJS   := $(USRCS:.cpp=.o)
 LOBJS   := $(LSRCS:.cpp=.o)
 TOBJS   := $(TSRCS:.cpp=.o)
 OBJS    := $(UOBJS) $(LOBJS) $(TOBJS)
+ifeq ($(PLATFORM), Windows)
+	DOBJS = $(subst /,\,$(OBJS))
+else
+	DOBJS = OBJS
+endif
+
+
+CXXFLAGS	:= -std=c++11 -Iinclude
+
+.PHONY: all
+all: $(TARGET) ## build application (default)
+
+$(TARGET):	$(UOBJS) $(LOBJS)
+	$(CXX) -o $@ $^ $(LFLAGS)
+
+%.o:	%.cpp
+	$(CXX) -c -o $@ $&lt; $(CXXFLAGS)
+
+.PHONY: clean ## remove all build artifacts
+	$(DEL) $(DOBJS)
+
 </pre></div>
 </td></tr></table></div>
 </div>
@@ -127,8 +174,8 @@ work properly when we set up a <code class="docutils literal notranslate"><span 
         <div class="sphinxsidebarwrapper">
   <div class="sphinxprev">
     <h4>Previous page</h4>
-    <p class="topless"><a href="../introduction/02-top-level.html"
-                          title="Previous page">&larr; Top-Level Makefile</a></p>
+    <p class="topless"><a href="../hardware/01-detecting-hardware.html"
+                          title="Previous page">&larr; Detecting Hardware</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -179,7 +226,7 @@ work properly when we set up a <code class="docutils literal notranslate"><span 
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../introduction/02-top-level.html" title="Top-Level Makefile"
+          <a href="../hardware/01-detecting-hardware.html" title="Detecting Hardware"
              >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../index.html">ModularMake 0.0.1 documentation</a> &#187;</li>
  

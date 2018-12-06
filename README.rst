@@ -2,6 +2,7 @@ Modular Make
 ############
 :Author: Roie R. Black
 :Date: Octpber 27, 2018
+"Documentation: https://rblack42.github.io/modular-make
 :License: BSD 3-Clause
 :Email: rblack@austincc.edu
 
@@ -12,7 +13,13 @@ on all major platforms.
 Documentation
 *************
 
-DOcumentation for this project is produced using the Python Sphinx tools. Of course, the ``Makefile`` does alll the hard work. The resulting html files are visible on Github at the following URL:
+Documentation for this project is produced using the Python Sphinx tools. Of
+course, the ``Makefile`` does alll the hard work. The resulting html files are
+visible on Github at the above URL.
 
-    * http://rblack42.github.io/modular-make
+Installatiob
+************
+
+Clone this repo into a suitable folder on your system. The project-level
+Lakefile will need to be modified so it points to this folder.
 

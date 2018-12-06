@@ -19,6 +19,8 @@ release = '0.0.1'
 
 extensions = [
     'sphinx.ext.githubpages',
+    'sphinx_ext.wordcount',
+    'sphinx_ext.tikzfigure',
 ]
 templates_path = ['_templates']
 source_suffix = '.rst'

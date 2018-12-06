@@ -1,0 +1,196 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Modular Make &#8212; ModularMake 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noticia+Text|Open+Sans|Droid+Sans+Mono" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/jquery.cookie.js"></script>
+    <script type="text/javascript" src="_static/cloud.base.js"></script>
+    <script type="text/javascript" src="_static/cloud.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+    <li><a href="index.html">ModularMake 0.0.1 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="modular-make">
+<h1>Modular Make<a class="headerlink" href="#modular-make" title="Permalink to this headline">¶</a></h1>
+<p>Read time: 15 minutes (3768 words)</p>
+<p>I like to teach programming classes using the command line and standard build
+tools. In my teaching experience, I see many students learning programming
+using some kind of IDE. Their instructors like the IDE because is is easy to
+set up, and that one tool covers all of their programming needs.  However, in
+the end these students have little idea how their programs are actually
+constructed.  All they ever do is click on one magic button in their IDE to see
+if their code will run.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">One school I was involved with almost lost their accreditation because no
+student interviewed (and several faculty as well) could explain what
+happened when that magic button was clicked!</p>
+</div>
+<p>Behind the scenes, many IDE systems use the same standard build tools I have my
+students use to actually process the code they write and get it running.</p>
+<p>There is nothing really wrong with the IDE approach, but my feeling is that
+using an IDE is a kind of religious thing. Most IDE tools take some learning to
+master, and they require a particular project structure to function. Worse yet,
+that structure is often invisible to beginning students, who end up with no
+idea where the code they just created lives on their system. My recommendation
+is to wait to pick an IDE until you know you will be spending a lot of time
+developing software in that system. Since many IDE systems used in a classroom
+are not used on the job, the time spend learning that school IDE may well be
+wasted when they discover they need to learn another one.</p>
+<p>I avoid all of that by focusing on the core build tools. For C/C++ classes, I
+use the <code class="docutils literal notranslate"><span class="pre">Gnu</span> <span class="pre">Compiler</span> <span class="pre">Collection</span></code> (<code class="docutils literal notranslate"><span class="pre">GCC</span></code>) tools, which are core tools on
+all Linux systems. ane same tools are easily installed on Mac and PC systems as
+well. I show students how these tools are used to build their programs by
+activating them on the command line.</p>
+<p>After thay have masterd that style of development, I introduce <a href="#id2"><span class="problematic" id="id3">Make_</span></a>, and the
+result is a development workflow that they can use on any machine, from a tiny
+Raspberry Pi to a giant supercomputer. If they want to use an IDE after than,
+nothing will stop that, and they will better understand what an IDE actually
+does.</p>
+<div class="section" id="why-make">
+<h2>Why Make<a class="headerlink" href="#why-make" title="Permalink to this headline">¶</a></h2>
+<p><a href="#id4"><span class="problematic" id="id5">Make_</span></a> is one of the oldest build tools around. It was developed by Marty
+Feldmann back in 1976, who wanted to speed up command line work (that was all
+we had back then).His tool did an amazing job of doinf that, and it has been in
+use actively ever since. In fact some IDE systems just end up being a wrapper
+around <a href="#id6"><span class="problematic" id="id7">Make_</span></a> which does the real work.</p>
+<p>Because it is so common, I use <a href="#id8"><span class="problematic" id="id9">Make_</span></a> rather than one of the newer build tools.
+A quick search on <a href="#id10"><span class="problematic" id="id11">GitHub_</span></a> showed 56 million Makefiles were available for study.
+I think that number speaks for itself!</p>
+</div>
+<div class="section" id="writing-makefiles">
+<h2>Writing Makefiles<a class="headerlink" href="#writing-makefiles" title="Permalink to this headline">¶</a></h2>
+<p><a href="#id12"><span class="problematic" id="id13">Make_</span></a> depends on a single text file called <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> or <code class="docutils literal notranslate"><span class="pre">makefile</span></code> to
+control what it does. There are many ways to set up <a href="#id14"><span class="problematic" id="id15">Make_</span></a> in a project, and
+some end up with a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> in every directory. A top-level Makefile can be
+used to build an entire project using this scheme. Other developers like one
+top-lebel Makefile`` to control every aspect of building and managing their
+projects.</p>
+<p>Because I teach beginning development courses, I keep to the single
+<code class="docutils literal notranslate"><span class="pre">Makefile</span></code> style. As the project grows in size, so does the size of this
+<code class="docutils literal notranslate"><span class="pre">Makefile</span></code>, so I began looking for ways to better manage the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code>
+itself. It turns out to be easy to do this, but getting things set up for
+student use took a bit of research and thinking!</p>
+</div>
+<div class="section" id="id1">
+<h2>Modular Make<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>WHat I came up with, and this is by no means original to me, is the idea of
+breaking up a long <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> into a set of focuses component files, all of
+which are included in a single top-level <cite>Makefile`</cite> that ends up fairly small.
+Any project can be set up by copying this one file into the right place, then
+selecting the <a href="#id16"><span class="problematic" id="id17">Make_</span></a> modules needed for that project.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="index.html">Page contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Modular Make</a><ul>
+<li><a class="reference internal" href="#why-make">Why Make</a></li>
+<li><a class="reference internal" href="#writing-makefiles">Writing Makefiles</a></li>
+<li><a class="reference internal" href="#id1">Modular Make</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/modular-make.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+    <li><a href="index.html">ModularMake 0.0.1 documentation</a> &#187;</li>
+ 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Roie R. Black.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.1.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
